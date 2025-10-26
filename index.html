@@ -125,8 +125,7 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
   #sectionsPanel a{padding:14px}
 }
 
-/* Hero spacing and fluid text sizes on small screens
-   (desktop values remain the same due to clamp max) */
+/* Hero spacing and fluid text sizes on small screens */
 @media (max-width: 680px){
   .hero{padding:28px 0}
   .hero-card{padding:18px}
@@ -173,6 +172,39 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
   .modal .panel{min-width:auto; max-width:min(92vw, 520px)}
   .input{font-size:16px}
 }
+
+/* ================== FINAL RESPONSIVE OVERRIDES (SIZE ONLY) ================== */
+/* Keep your desktop look exactly: 3/3/4 columns on large screens */
+@media (min-width: 981px){
+  body .gallery{grid-template-columns:repeat(3,1fr) !important;}
+  body .videos-grid{grid-template-columns:repeat(3,1fr) !important;}
+  body .skills-grid{grid-template-columns:repeat(4,1fr) !important;}
+}
+
+/* Tablets (no layout change — just ensure 2 clean columns) */
+@media (max-width: 980px){
+  body .gallery{grid-template-columns:repeat(2,1fr) !important;}
+  body .videos-grid{grid-template-columns:repeat(2,1fr) !important;}
+  body .skills-grid{grid-template-columns:repeat(2,1fr) !important;}
+}
+
+/* Phones (single column, bigger tap targets) */
+@media (max-width: 560px){
+  body .gallery{grid-template-columns:1fr !important;}
+  body .videos-grid{grid-template-columns:1fr !important;}
+  body .skills-grid{grid-template-columns:1fr !important;}
+  .gallery img{width:100% !important;height:auto !important;}
+}
+
+/* Topbar/buttons wrap nicely on very small widths */
+@media (max-width: 420px){
+  .lang-switch{flex-wrap:wrap !important; gap:6px !important;}
+  .lang-switch button,.login-btn,.nav-btn{font-size:12px !important; padding:6px 8px !important;}
+}
+
+/* Arabic list readability on phones */
+section ul{padding-inline-start:1.2em}
+section li{list-style:disc inside; line-height:1.9; overflow-wrap:anywhere}
 </style>
 </head>
 <body class="lang-ar">

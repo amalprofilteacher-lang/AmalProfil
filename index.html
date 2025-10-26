@@ -403,6 +403,7 @@ function openImage(src, alt=''){ box.innerHTML=''; const big = new Image(); big.
 function openVideo(src){ box.innerHTML=''; const vv=document.createElement('video'); vv.src=src; vv.controls=true; vv.autoplay=true; overlay.classList.add('show'); box.appendChild(vv);} 
 
 /* ===== Supabase Setup (Auth‑only uploads) ===== */
+  
 const SUPABASE_URL = 'https://YOUR-PROJECT.ref.supabase.co';
 const SUPABASE_ANON_KEY = 'YOUR-ANON-KEY';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

@@ -348,21 +348,26 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
   <div class="box"></div>
 </div>
 
-<!-- Auth Modal -->
+<!-- Auth Modal (email + password) -->
 <div id="authModal" class="modal">
   <div class="panel">
-    <h3 style="margin-top:0;color:#7a2f48" data-ar>تسجيل الدخول</h3>
-    <h3 style="margin-top:0;color:#7a2f48" data-en>Sign in</h3>
-    <input id="emailInput" type="email" class="input" placeholder="email@example.com">
+    <h3 style="margin-top:0;color:#7a2f48" data-ar>تسجيل الدخول (إيميل + كلمة مرور)</h3>
+    <h3 style="margin-top:0;color:#7a2f48" data-en>Sign in (Email + Password)</h3>
+
+    <input id="emailInput" type="email" class="input" placeholder="email@example.com" style="margin-bottom:8px">
+    <input id="passwordInput" type="password" class="input" placeholder="password" style="margin-bottom:8px">
+
     <div class="cta" style="margin-top:12px">
-      <button id="sendLinkBtn" class="btn" data-ar>إرسال الرابط</button>
-      <button id="sendLinkBtn_en" class="btn" data-en>Send magic link</button>
+      <button id="signInBtn" class="btn" data-ar>تسجيل الدخول</button>
+      <button id="signInBtn_en" class="btn" data-en>Sign in</button>
       <button id="closeAuth" class="btn secondary" data-ar>إغلاق</button>
       <button id="closeAuth_en" class="btn secondary" data-en>Close</button>
     </div>
-    <p id="authMsg" class="note"></p>
+
+    <p id="authMsg" class="note" style="margin-top:10px;color:#a7355a;font-weight:700"></p>
   </div>
 </div>
+
 
 <script>
 /* ===== Language Toggle ===== */
@@ -413,28 +418,50 @@ const BASE_PATH   = 'site';
 // UI
 const authModal = document.getElementById('authModal');
 const emailInput = document.getElementById('emailInput');
-const sendLinkBtn = document.getElementById('sendLinkBtn');
-const sendLinkBtn_en = document.getElementById('sendLinkBtn_en');
-const closeAuth = document.getElementById('closeAuth');
-const closeAuth_en = document.getElementById('closeAuth_en');
+const passwordInput = document.getElementById('passwordInput');
+const signInBtn = document.getElementById('signInBtn');
+const signInBtn_en = document.getElementById('signInBtn_en');
 const loginBtn = document.getElementById('loginBtn');
 const logoutBtn = document.getElementById('logoutBtn');
+const closeAuth = document.getElementById('closeAuth');
+const closeAuth_en = document.getElementById('closeAuth_en');
+const msg = document.getElementById('authMsg');
 
 function showAuth(show){ authModal.classList.toggle('show', !!show); }
+function setMsg(t){ msg.textContent = t || ''; }
+
 loginBtn.onclick = ()=> showAuth(true);
 closeAuth.onclick = closeAuth_en.onclick = ()=> showAuth(false);
 
-async function startMagic(){
-  const email = emailInput.value.trim();
-  if(!email) return;
-  const { error } = await supabaseClient.auth.signInWithOtp({ email, options:{ emailRedirectTo: window.location.href } });
-  document.getElementById('authMsg').textContent = error ? ('خطأ / Error: '+error.message) : 'تم إرسال الرابط / Link sent.';
-}
-sendLinkBtn.onclick = sendLinkBtn_en.onclick = startMagic;
-logoutBtn.onclick = async ()=>{ await supabaseClient.auth.signOut(); location.reload(); };
+// Email + Password sign-in
+async function signInWithPassword(){
+  const email = (emailInput.value||'').trim();
+  const password = (passwordInput.value||'').trim();
+  if(!email || !password){ setMsg('أدخلي الإيميل وكلمة المرور / Enter email & password'); return; }
 
-async function getUser(){ const { data:{ user } } = await supabaseClient.auth.getUser(); return user; }
-function uiSigned(user){ logoutBtn.style.display = user? 'inline-block':'none'; }
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if(error){ setMsg('خطأ: ' + error.message); return; }
+
+  setMsg('تم تسجيل الدخول ✓');
+  showAuth(false);
+  uiSigned(await getUser());
+}
+signInBtn.onclick = signInBtn_en.onclick = signInWithPassword;
+
+logoutBtn.onclick = async ()=>{
+  await supabaseClient.auth.signOut();
+  setMsg('تم تسجيل الخروج');
+  uiSigned(null);
+};
+
+async function getUser(){
+  const { data } = await supabaseClient.auth.getUser();
+  return data?.user ?? null;
+}
+function uiSigned(user){
+  logoutBtn.style.display = user ? 'inline-block' : 'none';
+}
+
 
 // Helpers
 function filePath(type, name){ return `${BASE_PATH}/${type}/${Date.now()}_${name}`; }

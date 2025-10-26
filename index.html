@@ -101,32 +101,32 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
 .modal.show{display:flex}
 .input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
 
-@media (max-width: 1100px){ .container{padding:0 14px} }
-@media (max-width: 680px){
-  section{padding:18px; margin:18px auto}
-  .lead{font-size:clamp(14px, 4.2vw, 18px); line-height:1.9}
+/* ===== Mobile & Tablet polish (non-destructive) ===== */
+
+/* Slightly tighter container on small screens */
+@media (max-width: 1100px){
+  .container{padding:0 14px}
 }
 
-/* 2) Topbar stays tidy and buttons don’t squash */
+/* Topbar: keep it tidy on phones */
 @media (max-width: 680px){
-  .topbar .row{grid-template-columns:auto 1fr; gap:8px; align-items:center}
-  .brand{font-size:18px; white-space:nowrap}
-  .lang-switch{display:flex; justify-content:flex-end; gap:6px; flex-wrap:wrap}
-  .lang-switch button,.login-btn,.nav-btn{padding:8px 10px; font-size:13px}
+  .topbar .row{grid-template-columns:1fr auto;gap:8px}
+  .brand{font-size:18px}
+  .lang-switch button,.login-btn,.nav-btn{padding:8px 10px}
 }
 
-/* 3) Sections panel becomes a neat bottom sheet on phones */
+/* Sections panel: turns into a neat bottom sheet on phones */
 @media (max-width: 560px){
   #sectionsPanel{
-    inset:0; top:auto; bottom:0;
-    border-radius:16px 16px 0 0; border:0;
-    min-width:auto; max-height:75vh; padding:12px;
+    inset:0; top:auto; bottom:0; border-radius:16px 16px 0 0;
+    min-width:auto; max-height:75vh; padding:12px; border:0;
     box-shadow:0 -8px 24px rgba(0,0,0,.14)
   }
   #sectionsPanel a{padding:14px}
 }
 
-/* 4) Hero spacing + fluid headings (desktop unchanged) */
+/* Hero spacing and fluid text sizes on small screens
+   (desktop values remain the same due to clamp max) */
 @media (max-width: 680px){
   .hero{padding:28px 0}
   .hero-card{padding:18px}
@@ -134,38 +134,40 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
   .hero-card h2{font-size:clamp(14px, 3.8vw, 18px)}
 }
 @media (max-width: 560px){
-  .cta{gap:8px}
   .cta .btn{flex:1 1 100%; text-align:center}
 }
 
-/* 5) Grids auto-fit nicely (NO change to your look on desktop) */
-.gallery{grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:14px}
-.videos-grid{grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px}
-.skills-grid{grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:16px}
+/* Body copy stays readable everywhere */
+@media (max-width: 680px){
+  .lead{font-size:clamp(14px, 4vw, 18px); line-height:1.9}
+  section{padding:18px; margin:18px auto}
+}
 
+/* Grids — same look but auto-fit on small screens */
 @media (max-width: 980px){
+  .gallery{grid-template-columns:repeat(2,1fr)}
   .videos-grid{grid-template-columns:repeat(2,1fr)}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width: 560px){
-  .gallery{grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)) !important}
-  .videos-grid{grid-template-columns:1fr !important}
-  .skills-grid{grid-template-columns:1fr !important}
+  .gallery{grid-template-columns:1fr}
+  .videos-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+}
+
+/* Make sure images and videos never overflow on tiny screens */
+@media (max-width: 560px){
   .gallery img{height:auto}
   .video-wrap{aspect-ratio:16/9}
   .icon-btn{padding:8px}
 }
 
-/* 6) CV cards stack to one column when space is tight */
+/* CV: stack into a single column on tablets/phones */
 @media (max-width: 900px){
-  .cv-grid{grid-template-columns:1fr !important}
+  .cv-grid{grid-template-columns:1fr}
 }
 
-/* 7) Arabic list items render cleanly without awkward breaks */
-section ul{padding-inline-start: 1.2em}
-section li{line-height:1.9; list-style-position: inside; word-break: break-word}
-.lang-ar li{text-align:start}
-
-/* 8) Modal panel is comfy on phones */
+/* Modal: comfortable width on phones */
 @media (max-width: 560px){
   .modal{padding:16px}
   .modal .panel{min-width:auto; max-width:min(92vw, 520px)}

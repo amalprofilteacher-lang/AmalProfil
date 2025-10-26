@@ -101,21 +101,13 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
 .modal.show{display:flex}
 .input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
 
-/* ===== Mobile & Tablet polish (non-destructive) ===== */
-
-/* Slightly tighter container on small screens */
-@media (max-width: 1100px){
-  .container{padding:0 14px}
-}
-
-/* Topbar: keep it tidy on phones */
+/* ===== Mobile & Tablet polish ===== */
+@media (max-width: 1100px){ .container{padding:0 14px} }
 @media (max-width: 680px){
   .topbar .row{grid-template-columns:1fr auto;gap:8px}
   .brand{font-size:18px}
   .lang-switch button,.login-btn,.nav-btn{padding:8px 10px}
 }
-
-/* Sections panel: turns into a neat bottom sheet on phones */
 @media (max-width: 560px){
   #sectionsPanel{
     inset:0; top:auto; bottom:0; border-radius:16px 16px 0 0;
@@ -124,25 +116,17 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
   }
   #sectionsPanel a{padding:14px}
 }
-
-/* Hero spacing and fluid text sizes on small screens */
 @media (max-width: 680px){
   .hero{padding:28px 0}
   .hero-card{padding:18px}
   .hero-card h1{font-size:clamp(22px, 7vw, 34px)}
   .hero-card h2{font-size:clamp(14px, 3.8vw, 18px)}
 }
-@media (max-width: 560px){
-  .cta .btn{flex:1 1 100%; text-align:center}
-}
-
-/* Body copy stays readable everywhere */
+@media (max-width: 560px){ .cta .btn{flex:1 1 100%; text-align:center} }
 @media (max-width: 680px){
   .lead{font-size:clamp(14px, 4vw, 18px); line-height:1.9}
   section{padding:18px; margin:18px auto}
 }
-
-/* Grids — same look but auto-fit on small screens */
 @media (max-width: 980px){
   .gallery{grid-template-columns:repeat(2,1fr)}
   .videos-grid{grid-template-columns:repeat(2,1fr)}
@@ -153,58 +137,61 @@ footer .en{font-family:'Poppins',sans-serif;font-weight:500;color:#444}
   .videos-grid{grid-template-columns:1fr}
   .skills-grid{grid-template-columns:1fr}
 }
-
-/* Make sure images and videos never overflow on tiny screens */
 @media (max-width: 560px){
   .gallery img{height:auto}
   .video-wrap{aspect-ratio:16/9}
   .icon-btn{padding:8px}
 }
-
-/* CV: stack into a single column on tablets/phones */
-@media (max-width: 900px){
-  .cv-grid{grid-template-columns:1fr}
-}
-
-/* Modal: comfortable width on phones */
+@media (max-width: 900px){ .cv-grid{grid-template-columns:1fr} }
 @media (max-width: 560px){
   .modal{padding:16px}
   .modal .panel{min-width:auto; max-width:min(92vw, 520px)}
   .input{font-size:16px}
 }
 
-/* ================== FINAL RESPONSIVE OVERRIDES (SIZE ONLY) ================== */
-/* Keep your desktop look exactly: 3/3/4 columns on large screens */
+/* ================== FINAL RESPONSIVE OVERRIDES ================== */
 @media (min-width: 981px){
   body .gallery{grid-template-columns:repeat(3,1fr) !important;}
   body .videos-grid{grid-template-columns:repeat(3,1fr) !important;}
   body .skills-grid{grid-template-columns:repeat(4,1fr) !important;}
 }
-
-/* Tablets (no layout change — just ensure 2 clean columns) */
 @media (max-width: 980px){
   body .gallery{grid-template-columns:repeat(2,1fr) !important;}
   body .videos-grid{grid-template-columns:repeat(2,1fr) !important;}
   body .skills-grid{grid-template-columns:repeat(2,1fr) !important;}
 }
-
-/* Phones (single column, bigger tap targets) */
 @media (max-width: 560px){
   body .gallery{grid-template-columns:1fr !important;}
   body .videos-grid{grid-template-columns:1fr !important;}
   body .skills-grid{grid-template-columns:1fr !important;}
   .gallery img{width:100% !important;height:auto !important;}
 }
-
-/* Topbar/buttons wrap nicely on very small widths */
 @media (max-width: 420px){
   .lang-switch{flex-wrap:wrap !important; gap:6px !important;}
   .lang-switch button,.login-btn,.nav-btn{font-size:12px !important; padding:6px 8px !important;}
 }
-
-/* Arabic list readability on phones */
 section ul{padding-inline-start:1.2em}
 section li{list-style:disc inside; line-height:1.9; overflow-wrap:anywhere}
+
+/* === Header (Topbar) — no collision on small screens === */
+/* Phones/tablets: keep single row until space is really tight */
+@media (max-width: 680px){
+  .topbar .row{grid-template-columns:auto 1fr;align-items:center}
+  .brand{font-size:clamp(16px,4.6vw,18px);line-height:1.15;max-width:48vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lang-switch{display:flex;gap:6px;flex-wrap:nowrap;overflow:hidden}
+  .lang-switch button,.login-btn,.nav-btn{font-size:12px;padding:6px 10px;border-radius:8px;white-space:nowrap}
+}
+/* Extra small: switch to two rows (brand on its own line) */
+@media (max-width: 520px){
+  .topbar .row{grid-template-columns:1fr;row-gap:8px}
+  .brand{max-width:100%;text-align:center;white-space:normal}
+  .lang-switch{justify-content:center;flex-wrap:wrap;gap:6px}
+}
+/* Tiny phones: hide Sections text to save width */
+@media (max-width: 420px){
+  #sectionsBtn span{display:none}
+  #sectionsBtn{padding-inline:8px}
+}
 </style>
 </head>
 <body class="lang-ar">
@@ -590,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderImages(list){
     gGrid.innerHTML = list.map(it=>`<div class="item"><img src="${it.url}" alt="${it.name}"><div class="card-actions"><button class="icon-btn" data-del="${it.path}" title="حذف / Delete"><i class="fa-solid fa-trash"></i></button><a class="icon-btn" href="${it.url}" download title="تنزيل / Download"><i class="fa-solid fa-download"></i></a></div></div>`).join('');
     gGrid.querySelectorAll('img').forEach(img=>img.addEventListener('click',()=>openImage(img.src, img.alt)));
-    gGrid.querySelectorAll('[data-del]').forEach(btn=>btn.addEventListener('click',()=>removeFile(btn.dataset.del)));
+    gGrid.querySelectorAll('[data-del]').forEach	btn=>btn.addEventListener('click',()=>removeFile(btn.dataset.del)));
   }
 
   function renderVideos(list){

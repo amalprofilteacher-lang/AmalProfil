@@ -577,7 +577,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderImages(list){
     gGrid.innerHTML = list.map(it=>`<div class="item"><img src="${it.url}" alt="${it.name}"><div class="card-actions"><button class="icon-btn" data-del="${it.path}" title="حذف / Delete"><i class="fa-solid fa-trash"></i></button><a class="icon-btn" href="${it.url}" download title="تنزيل / Download"><i class="fa-solid fa-download"></i></a></div></div>`).join('');
     gGrid.querySelectorAll('img').forEach(img=>img.addEventListener('click',()=>openImage(img.src, img.alt)));
-    gGrid.querySelectorAll('[data-del]').forEach	btn=>btn.addEventListener('click',()=>removeFile(btn.dataset.del)));
+    gGrid.querySelectorAll('[data-del]').forEach	
+    btn=>btn.addEventListener('click',()=>removeFile(btn.dataset.del));
   }
 
   function renderVideos(list){

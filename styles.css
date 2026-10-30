@@ -33,3 +33,35 @@ body.dialog-open{overflow:hidden}.portfolio-dialog{border:1px solid #e3d3dd;bord
 @media(max-width:700px){.evidence-upload{font-size:9px;padding:5px 9px}.results-line{gap:12px}.upload-summary{font-size:10px}}
 
 .pdf-pages{height:68vh;width:100%;overflow:auto;border:1px solid var(--line);border-radius:8px;background:#e9e4e6;scrollbar-gutter:stable;padding:12px}.pdf-page{max-width:1100px;margin:0 auto 18px;background:white;box-shadow:0 2px 8px #30102415}.media-content .pdf-pages img{max-height:none;width:100%;height:auto;border-radius:0;background:white}.pdf-page figcaption{font-size:11px;color:var(--muted);padding:5px;background:#fff}.pdf-pages:focus-visible{outline:2px solid var(--rose);outline-offset:3px}@media(max-width:600px){.pdf-pages{height:60vh;padding:4px}.pdf-page{margin-bottom:10px}}
+
+/* Consistent outline iconography: never rely on platform emoji rendering. */
+.ui-icon{display:inline-block;vertical-align:middle;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.direction-arrow .ui-icon{width:20px;height:20px}
+.language-button .ui-icon{width:12px;height:12px;margin-inline-start:7px;color:var(--rose)}
+.text-link .ui-icon{width:16px;height:16px}
+.row-arrow .ui-icon{width:18px;height:18px}
+.play-icon .ui-icon{width:21px;height:21px;fill:currentColor;stroke:currentColor}
+.placeholder-symbol .ui-icon{width:34px;height:34px}
+.plan-pages{display:inline-flex;align-items:center;gap:5px}
+.plan-pages .ui-icon{width:14px;height:14px}
+.back-to-top>span:last-child .ui-icon{width:18px;height:18px}
+.dialog-close .ui-icon{width:19px;height:19px}
+.details-plus .ui-icon{width:18px;height:18px}
+.evidence-upload .ui-icon,.load-more-wrap .ui-icon{width:16px;height:16px}
+.upload-symbol .ui-icon{width:31px;height:31px}
+.original-link{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.original-link .ui-icon{width:14px;height:14px}
+.empty-symbol .ui-icon{width:27px;height:27px}
+.upload-success .ui-icon,.upload-failed .ui-icon{width:16px;height:16px;margin-inline-end:5px}
+.auth-help{margin:13px 0 4px;padding:11px 13px;border-inline-start:2px solid var(--rose);background:var(--blush);color:#6a4c5d;font-size:11px;line-height:1.9;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+@media(max-width:420px){
+  .evidence-card .card-body{padding:12px}
+  .evidence-card .card-title{font-size:12px;line-height:1.65}
+  .evidence-card .card-category{font-size:9px}
+  .evidence-card .card-meta{font-size:9px}
+  .evidence-card .type-tag{font-size:9px}
+  .category-copy h3{font-size:15px}
+  .category-copy p{font-size:11px}
+  .language-button .ui-icon{display:none}
+}
